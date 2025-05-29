@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recycling Dashboard</title>
+</head>
+<body>
+    <h1>Recycling Dashboard</h1>
+
+    <!-- Display Summary -->
+    <h2>Total Bottles Recycled: {{ amount_recycled }}</h2>
+    <h3>Bottle Types Distribution:</h3>
+    <ul>
+        {% for bottle_type, count in bottle_types_final.items() %}
+            <li>{{ bottle_type }}: {{ count }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Recycling Dates:</h3>
+    <ul>
+        {% for date in recycling_dates %}
+            <li>{{ date }}</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
+    <!-- Display Graphs -->
+    {% if carbon_emission_graph_img %}
+        <h3>Carbon Emission Graph:</h3>
+        <img src="{{ carbon_emission_graph_img }}" alt="Carbon Emission Graph">
+    {% endif %}
+
+    {% if bottle_distribution_graph_img %}
+        <h3>Bottle Distribution Graph:</h3>
+        <img src="{{ bottle_distribution_graph_img }}" alt="Bottle Distribution Graph">
+    {% endif %}
+
+    {% if lin_reg_graph_img %}
+        <h3>Linear Regression Graph (Time Series & Prediction):</h3>
+        <img src="{{ lin_reg_graph_img }}" alt="Linear Regression Graph">
+        <p>{{ one_year_prediction_text }}</p>
+    {% endif %}
+
+    <hr>
+
+    <!-- Form for Adding Data -->
+    <form method="POST" action="/home">
+        <label for="recycled">Number of Bottles Recycled:</label>
+        <input type="number" id="recycled" name="recycled" required>
+        <br>
+        <label for="bottle_type">Bottle Type:</label>
+        <input type="text" id="bottle_type" name="bottle_type" required>
+        <br>
+        <label for="recycle_date">Recycling Date:</label>
+        <input type="date" id="recycle_date" name="recycle_date" required>
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
